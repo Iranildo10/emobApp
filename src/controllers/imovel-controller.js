@@ -5,6 +5,8 @@ const repository = require('../repositories/imovel-repository');
 // cadastrar imovel
 exports.post = async (req, res, next) => {
 
+    //await repository.saveImovelImages(req.body.imagens),
+
     try {
         await repository.create({
             user_id: req.body.user_id,

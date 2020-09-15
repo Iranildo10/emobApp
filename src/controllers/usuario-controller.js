@@ -36,7 +36,7 @@ exports.post = async (req, res, next) => {
             senha: md5(req.body.senha + global.SALT_KEY),
              type: req.body.type,
             value: req.body.value,
-            imagem: req.body.imagem
+            imagem: await repository.saveUserImage(req.body.imagem)
         }
         );
 
@@ -69,7 +69,7 @@ exports.update = async (req, res, next) => {
             senha: md5(req.body.senha + global.SALT_KEY),
             type: req.body.type,
             value: req.body.value,
-            imagem: req.body.imagem
+            imagem: await repository.saveUserImage(req.body.imagem)
         };
 
         await repository.update(filter, update);

@@ -3,6 +3,10 @@
 const mongoose = require('mongoose');
 const Imovel = mongoose.model('Imovel');
 
+const azure = require('azure-storage');
+const guid = require('guid');
+var config = require('../config');
+
 //Cadastrar Imovel
 exports.create = async(data) =>{
     var imovel = new Imovel(data);
@@ -37,6 +41,40 @@ exports.getByUserId = async(user_id) => {
     }
     );
     return res;
+}
+
+exports.saveImovelImages = async(images) => {
+
+    var imovel_images = [];
+
+    for(var i = 0; i = images.length; i++){
+
+        // Cria o Blob Service
+    const blobSvc = azure.createBlobService(config.containerConnectionString);
+
+    let filename = guid.raw().toString() + '.jpg';
+    let rawdata = images[i];
+    let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    let type = matches[1];
+    let buffer = new Buffer(matches[2], 'base64');
+
+    // Salva a imagem
+    await blobSvc.createBlockBlobFromText('imoveis', filename, buffer, {
+        contentType: type
+    }, function (error, result, response) {
+        if (error) {
+            filename = 'default-customer.png'
+        }
+    });
+
+    //return "https://emob.blob.core.windows.net/imoveis/" + filename;
+
+    imovel_images.push("https://emob.blob.core.windows.net/imoveis/" + filename);
+
+    };
+    
+    return imovel_images;
+    
 }
 
 
