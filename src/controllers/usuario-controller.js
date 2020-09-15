@@ -40,6 +40,8 @@ exports.post = async (req, res, next) => {
         }
         );
 
+        //teste
+
         res.status(201).send({ 
             message: 'Usuario cadastrado com sucesso!'
         });
