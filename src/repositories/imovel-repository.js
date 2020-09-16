@@ -43,17 +43,13 @@ exports.getByUserId = async(user_id) => {
     return res;
 }
 
-exports.saveImovelImages = async(images) => {
+exports.saveImovelImages = async(image) => {
 
-    var imovel_images = [];
-
-    for(var i = 0; i = images.length; i++){
-
-        // Cria o Blob Service
+    // Cria o Blob Service
     const blobSvc = azure.createBlobService(config.containerConnectionString);
 
     let filename = guid.raw().toString() + '.jpg';
-    let rawdata = images[i];
+    let rawdata = image;
     let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     let type = matches[1];
     let buffer = new Buffer(matches[2], 'base64');
@@ -69,12 +65,6 @@ exports.saveImovelImages = async(images) => {
 
     //return "https://emob.blob.core.windows.net/imoveis/" + filename;
 
-    imovel_images.push("https://emob.blob.core.windows.net/imoveis/" + filename);
-
-    };
-    
-    return imovel_images;
+    return "https://emob.blob.core.windows.net/imoveis/" + filename;
     
 }
-
-

@@ -5,17 +5,54 @@ const repository = require('../repositories/imovel-repository');
 // cadastrar imovel
 exports.post = async (req, res, next) => {
 
-    //await repository.saveImovelImages(req.body.imagens),
-
+    /** 
+     * 
+     * for(let photo in req.body.comodos){
+     *  console.log(req.body.comodos[photo]["nome"] + req.body.comodos[image]["nome"]);
+        console.log(req.body.comodos[photo]["photo"] + req.body.comodos[image]["nome"]);
+        console.log(req.body.comodos[photo]["is360"] + req.body.comodos[image]["nome"]);
+    }
+    */
+    
     try {
+
+        //Salvar todas as imagens da casa em nuvem
+        let imovel_images = [];
+
+        for(let image in req.body.imagens){
+            //console.log(req.body.imagens[image]);
+            imovel_images.push(await repository.saveImovelImages(req.body.imagens[image]));
+            //console.log(imovel_images[image]);
+        }
+
+
+        //Salvar todas as imagens dos comodos em nuvem
+        let comodos = [];
+
+       for(let photo in req.body.comodos){
+           //console.log(req.body.comodos[photo]["nome"] );
+           //console.log(req.body.comodos[photo]["photo"] );
+           //console.log(req.body.comodos[photo]["is360"] );
+           
+           var comodo = {
+               nome: req.body.comodos[photo]["nome"],
+               photo:await repository.saveImovelImages(req.body.comodos[photo]["photo"]),
+               is360: req.body.comodos[photo]["is360"]
+           }
+
+           comodos.push(comodo);
+       }
+
+
+       
         await repository.create({
             user_id: req.body.user_id,
             tipo_imovel: req.body.tipo_imovel,
             tipo_anuncio: req.body.tipo_anuncio,
-            imagens: req.body.imagens,
+            imagens: imovel_images,
             valor: req.body.valor,
             avaliacao: req.body.avaliacao,
-            comodos: req.body.comodos,
+            comodos: comodos,
             logradouro: req.body.logradouro,
             numero: req.body.numero,
             cep: req.body.cep,
@@ -26,7 +63,7 @@ exports.post = async (req, res, next) => {
             longitude: req.body.longitude
         }
         );
-
+     
         res.status(201).send({
             message: 'Imovel cadastrado com sucesso!'
         });
@@ -47,15 +84,42 @@ exports.update = async (req, res, next) => {
 
     try {
 
+        //Salvar todas as imagens da casa em nuvem
+        let imovel_images = [];
+
+        for(let image in req.body.imagens){
+            //console.log(req.body.imagens[image]);
+            imovel_images.push(await repository.saveImovelImages(req.body.imagens[image]));
+            //console.log(imovel_images[image]);
+        }
+
+
+        //Salvar todas as imagens dos comodos em nuvem
+        let comodos = [];
+
+       for(let photo in req.body.comodos){
+           //console.log(req.body.comodos[photo]["nome"] );
+           //console.log(req.body.comodos[photo]["photo"] );
+           //console.log(req.body.comodos[photo]["is360"] );
+           
+           var comodo = {
+               nome: req.body.comodos[photo]["nome"],
+               photo:await repository.saveImovelImages(req.body.comodos[photo]["photo"]),
+               is360: req.body.comodos[photo]["is360"]
+           }
+
+           comodos.push(comodo);
+       }
+
         var filter = req.body.id;
         var update = {
             user_id: req.body.user_id,
             tipo_imovel: req.body.tipo_imovel,
             tipo_anuncio: req.body.tipo_anuncio,
-            imagens: req.body.imagens,
+            imagens: imovel_images,
             valor: req.body.valor,
             avaliacao: req.body.avaliacao,
-            comodos: req.body.comodos,
+            comodos: comodos,
             logradouro: req.body.logradouro,
             numero: req.body.numero,
             cep: req.body.cep,

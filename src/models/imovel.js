@@ -35,6 +35,10 @@ const schema = new Schema({
                 photo: {
                     type: String,
                     required: true
+                },
+                is360: {
+                    type: Boolean,
+                    required: true
                 }
             }
         )
