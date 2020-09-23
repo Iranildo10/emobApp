@@ -20,6 +20,9 @@ router.get('/', controller.get);
 //Pesquisar por usuario que cadastrou o imovel
 router.post('/usuario', controller.getByUserId);
 
+//Remover Cadastro
+router.delete('/:id', controller.remove);
+
 
 
 module.exports = router;

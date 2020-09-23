@@ -68,3 +68,7 @@ exports.saveImovelImages = async(image) => {
     return "https://emob.blob.core.windows.net/imoveis/" + filename;
     
 }
+
+exports.remove = async(imovel_id) => {
+    await Imovel.findOneAndRemove(imovel_id);
+}

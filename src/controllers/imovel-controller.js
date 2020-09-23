@@ -215,3 +215,24 @@ exports.getByUserId = async(req, res, next) => {
         
     }
 };
+
+exports.remove = async (req, res, next) => {
+
+    try {
+        await repository.remove(req.params.id
+        );
+
+        res.status(201).send({ 
+            message: 'Imóvel removido com sucesso!'
+        });
+
+    } catch (e) {
+        res.status(400).send({ 
+            message: 'Falha ao remover Imóvel', 
+            data: e.toString()
+        });
+
+        console.log(e)
+    }
+
+};
