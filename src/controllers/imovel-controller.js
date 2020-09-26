@@ -236,3 +236,17 @@ exports.remove = async (req, res, next) => {
     }
 
 };
+
+//Pesquisar por Id
+exports.getById = async (req, res, next) =>{
+    try {
+        var data = await repository.getById(req.params.id);
+        res.status(200).send(data);
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha ao processar sua requisição',
+            data: error
+        });
+        
+    }
+};

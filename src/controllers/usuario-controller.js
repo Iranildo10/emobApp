@@ -71,13 +71,41 @@ exports.update = async (req, res, next) => {
             senha: md5(req.body.senha + global.SALT_KEY),
             type: req.body.type,
             value: req.body.value,
-            imagem: await repository.saveUserImage(req.body.imagem)
+            //imagem: await repository.saveUserImage(req.body.imagem)
         };
 
         await repository.update(filter, update);
 
         res.status(201).send({ 
             message: 'Usuario atualizado com sucesso!'
+        });
+
+    } catch (e) {
+        res.status(400).send({ 
+            message: 'Falha ao atualizar Usuario', 
+            data: e.toString()
+        });
+
+        console.log(e)
+    }
+
+};
+
+//Atualizar imagem do usuario
+exports.updateImage = async (req, res, next) => {
+
+    try {
+
+        var filter = req.body.id;
+        var update = {
+            
+            imagem: await repository.saveUserImage(req.body.imagem)
+        };
+
+        await repository.update(filter, update);
+
+        res.status(201).send({ 
+            message: 'Imagem atualizada com sucesso!'
         });
 
     } catch (e) {
@@ -177,6 +205,19 @@ exports.remove = async (req, res, next) => {
 exports.get = async (req, res, next) =>{
     try {
         var data = await repository.get();
+        res.status(200).send(data);
+    } catch (error) {
+        res.status(500).send({
+            message: 'Falha ao processar sua requisição',
+            data: error
+        });
+        
+    }
+};
+
+exports.getById = async (req, res, next) =>{
+    try {
+        var data = await repository.getById(req.params.id);
         res.status(200).send(data);
     } catch (error) {
         res.status(500).send({

@@ -14,8 +14,14 @@ router.post('/login', controller.login);
 //Buscar informações
 router.get('/', controller.get);
 
+//Buscar por ID
+router.get('/:id', controller.getById);
+
 //Atualizar Cadastro
 router.put('/', controller.update);
+
+//Atualizar Imagem
+router.put('/', controller.updateImage);
 
 //Remover Cadastro
 router.delete('/:id', controller.remove);

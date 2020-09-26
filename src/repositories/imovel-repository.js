@@ -72,3 +72,5 @@ exports.saveImovelImages = async(image) => {
 exports.remove = async(imovel_id) => {
     await Imovel.findOneAndRemove(imovel_id);
 }
+
+

@@ -41,6 +41,13 @@ exports.getByEmail = async(email) => {
     return res;
 }
 
+exports.getById = async(id) => {
+    var res = await Usuario.find({
+        _id: id
+    }, 'imagem nome celular telefone');
+    return res;
+}
+
 exports.getByValue = async(value) => {
     var res = await Usuario.find({
         value: value
