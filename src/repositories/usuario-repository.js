@@ -60,8 +60,10 @@ exports.remove = async(user_id) => {
 }
 
 exports.saveUserImage = async(image) => {
-    
-    // Cria o Blob Service
+
+    try {
+
+        // Cria o Blob Service
     const blobSvc = azure.createBlobService(config.containerConnectionString);
 
     let filename = guid.raw().toString() + '.jpg';
@@ -80,7 +82,13 @@ exports.saveUserImage = async(image) => {
     });
 
     return "https://emob.blob.core.windows.net/usuarios/" + filename;
+        
+    } catch (error) {
 
+        return image;
+        
+    }
+    
 }
 
 

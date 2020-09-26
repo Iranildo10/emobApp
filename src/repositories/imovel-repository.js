@@ -45,7 +45,8 @@ exports.getByUserId = async(user_id) => {
 
 exports.saveImovelImages = async(image) => {
 
-    // Cria o Blob Service
+    try {
+        // Cria o Blob Service
     const blobSvc = azure.createBlobService(config.containerConnectionString);
 
     let filename = guid.raw().toString() + '.jpg';
@@ -66,6 +67,11 @@ exports.saveImovelImages = async(image) => {
     //return "https://emob.blob.core.windows.net/imoveis/" + filename;
 
     return "https://emob.blob.core.windows.net/imoveis/" + filename;
+    } catch (error) {
+        return image;
+    }
+
+    
     
 }
 
