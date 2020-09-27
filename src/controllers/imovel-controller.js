@@ -133,8 +133,11 @@ exports.update = async (req, res, next) => {
 
         await repository.update(filter, update);
 
+        var data = await repository.getById(req.body.id)
+
         res.status(201).send({
-            message: 'Imóvel atualizado com sucesso!'
+            message: 'Imóvel atualizado com sucesso!',
+            imovel: data
         });
 
     } catch (e) {

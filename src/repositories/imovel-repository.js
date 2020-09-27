@@ -79,4 +79,12 @@ exports.remove = async(imovel_id) => {
     await Imovel.findOneAndRemove(imovel_id);
 }
 
+exports.getById = async(id) => {
+    var res = await Imovel.find({
+        _id: id
+    }, );
+    return res;
+}
+
+
 
