@@ -71,13 +71,16 @@ exports.update = async (req, res, next) => {
             senha: md5(req.body.senha + global.SALT_KEY),
             type: req.body.type,
             value: req.body.value,
-            //imagem: await repository.saveUserImage(req.body.imagem)
+            imagem: await repository.saveUserImage(req.body.imagem)
         };
 
         await repository.update(filter, update);
 
+        var data = await repository.getById(req.body.id);
+
         res.status(201).send({ 
-            message: 'Usuario atualizado com sucesso!'
+            message: 'Usuario atualizado com sucesso!',
+            usuario: data
         });
 
     } catch (e) {

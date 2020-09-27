@@ -21,7 +21,7 @@ router.get('/:id', controller.getById);
 router.put('/', controller.update);
 
 //Atualizar Imagem
-router.put('/', controller.updateImage);
+//router.put('/', controller.updateImage);
 
 //Remover Cadastro
 router.delete('/:id', controller.remove);
