@@ -29,16 +29,14 @@ const schema = new Schema({
         type: Schema(
             {
                 nome: {
-                    type: String,
-                    required: true
+                    type: String
+                    
                 },
                 photo: {
-                    type: String,
-                    required: true
+                    type: String
                 },
                 is360: {
-                    type: Boolean,
-                    required: true
+                    type: Boolean
                 }
             }
         )
