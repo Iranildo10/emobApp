@@ -20,7 +20,7 @@ const schema = new Schema({
         type: String
     }],
     valor: {
-        type: Number
+        type: String
     },
     avaliacao: {
         type: Number
