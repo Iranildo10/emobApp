@@ -44,18 +44,15 @@ exports.getByUserId = async(user_id) => {
 }
 
 exports.saveImovelImages = async(image) => {
-
     try {
-        // Cria o Blob Service
     const blobSvc = azure.createBlobService(config.containerConnectionString);
-
     let filename = guid.raw().toString() + '.jpg';
     let rawdata = image;
     let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     let type = matches[1];
     let buffer = new Buffer(matches[2], 'base64');
 
-    // Salva a imagem
+    
     await blobSvc.createBlockBlobFromText('imoveis', filename, buffer, {
         contentType: type
     }, function (error, result, response) {
@@ -63,8 +60,6 @@ exports.saveImovelImages = async(image) => {
             filename = 'default-customer.png'
         }
     });
-
-    //return "https://emob.blob.core.windows.net/imoveis/" + filename;
 
     return "https://emob.blob.core.windows.net/imoveis/" + filename;
     } catch (error) {
@@ -76,7 +71,7 @@ exports.saveImovelImages = async(image) => {
 }
 
 exports.remove = async(imovel_id) => {
-    await Imovel.findOneAndRemove(imovel_id);
+    await Imovel.findOneAndRemove({ _id: imovel_id});
 }
 
 exports.getById = async(id) => {

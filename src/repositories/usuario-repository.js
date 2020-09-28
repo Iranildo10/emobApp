@@ -56,7 +56,7 @@ exports.getByValue = async(value) => {
 }
 
 exports.remove = async(user_id) => {
-    await Usuario.findOneAndRemove(user_id);
+    await Usuario.findOneAndRemove({ _id : user_id });
 }
 
 exports.saveUserImage = async(image) => {
