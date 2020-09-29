@@ -68,7 +68,7 @@ exports.update = async (req, res, next) => {
             email: req.body.email,
             celular: req.body.celular,
             telefone: req.body.telefone,
-            senha: md5(req.body.senha + global.SALT_KEY),
+            //senha: md5(req.body.senha + global.SALT_KEY),
             type: req.body.type,
             value: req.body.value,
             imagem: await repository.saveUserImage(req.body.imagem)
